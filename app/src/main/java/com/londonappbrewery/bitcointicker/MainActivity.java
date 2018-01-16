@@ -18,6 +18,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cz.msebera.android.httpclient.Header;
 
 
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: complete the letsDoSomeNetworking() method
-    private void letsDoSomeNetworking(String url) {
+    private void letsDoSomeNetworking(final String url) {
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
@@ -76,6 +79,17 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     String bitcoinRate=response.getString("last");
                     mPriceTextView.setText(bitcoinRate);
+
+                    Pattern p=Pattern.compile("BTC(.+)");
+                    //Using Regex to find the string after BTC in url
+                    Matcher matcher=p.matcher(url);
+
+                    while (matcher.find()){
+                        Log.d(TAG,"find :"+matcher.group(1));
+
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
