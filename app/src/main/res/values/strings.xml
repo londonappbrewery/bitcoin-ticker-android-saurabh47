@@ -5,6 +5,7 @@
     <string name="base">Base Currency</string>
     <string name="imageview_desc">Bitcoin Logo</string>
 
+
     <string-array name="currency_array">
         <item>AUD</item>
         <item>BRL</item>
@@ -21,6 +22,24 @@
         <item>USD</item>
         <item>ZAR</item>
     </string-array>
+
+    <string-array name="symbol_array">
+        <item>$</item>
+        <item>R$</item>
+        <item>$</item>
+        <item>¥</item>
+        <item>€</item>
+        <item>£</item>
+        <item>$</item>
+        <item>₹</item>
+        <item>¥</item>
+        <item>zł</item>
+        <item>₽</item>
+        <item>kr</item>
+        <item>$</item>
+        <item>R</item>
+    </string-array>
+
 
 
 </resources>

@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     final String TAG="Bitcoin";
     // Member Variables:
     TextView mPriceTextView;
+    String[] symbol;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         mPriceTextView = (TextView) findViewById(R.id.priceLabel);
         Spinner spinner = (Spinner) findViewById(R.id.currency_spinner);
+
+        symbol=getResources().getStringArray(R.array.symbol_array);
 
         // Create an ArrayAdapter using the String array and a spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             Log.d(TAG, BASE_URL+parent.getItemAtPosition(position));
-            letsDoSomeNetworking(BASE_URL+parent.getItemAtPosition(position));
+            letsDoSomeNetworking(""+parent.getItemAtPosition(position),position);
             }
 
             @Override
@@ -68,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: complete the letsDoSomeNetworking() method
-    private void letsDoSomeNetworking(final String url) {
+    private void letsDoSomeNetworking(String currency,final int position) {
+
+        String url=BASE_URL+currency;
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
@@ -78,16 +84,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "JSON: " + response.toString());
                 try {
                     String bitcoinRate=response.getString("last");
-                    mPriceTextView.setText(bitcoinRate);
 
-                    Pattern p=Pattern.compile("BTC(.+)");
-                    //Using Regex to find the string after BTC in url
-                    Matcher matcher=p.matcher(url);
 
-                    while (matcher.find()){
-                        Log.d(TAG,"find :"+matcher.group(1));
+                    mPriceTextView.setText(bitcoinRate+" "+symbol[position]);
 
-                    }
+                    /**Regex Code**
+                     *
+                      */
+//                    Pattern p=Pattern.compile("BTC(.+)");
+//                    //Using Regex to find the string after BTC in url
+//                    Matcher matcher=p.matcher(url);
+//
+//                    while (matcher.find()){
+//                        Log.d(TAG,"find :"+matcher.group(1));
+//                    }
 
 
                 } catch (JSONException e) {
